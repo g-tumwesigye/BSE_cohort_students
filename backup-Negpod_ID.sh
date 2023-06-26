@@ -1,39 +1,17 @@
 #!/bin/bash
 
-# Prompt the user for input
-echo "Enter student information. Press Ctrl+C to exit."
+# Remote server details
+host="a0dfc11ba139.a982e858.alu-cod.online"
+username="a0dfc11ba139"
+password="899c79fc532cd0591af1"
+remote_directory="/home/sftp-student/03033/summative"
 
-# Create an empty array to store student data
-students=()
+# Directory name for backup
+directory_name="0323-RW-SOFEN-8120120-13-q1"
 
-# Read student information until the user decides to exit
-while true; do
-    read -p "Student email: " email
-    read -p "Age: " age
-    read -p "Student ID: " student_id
+# Create the backup script
+backup_script="backup-$directory_name.sh"
+echo "#!/bin/bash" > "$backup_script"
+echo "rsync -avz -e 'sshpass -p $password ssh -o StrictHostKeyChecking=no' \"$directory_name\" $username@$host:\"$remote_directory\"" >> "$backup_script"
 
-    # Store student information in an associative array
-    student=([email]=$email [age]=$age [student_id]=$student_id)
-
-    # Add the student to the array of students
-    students+=("$student")
-
-    read -p "Add another student? (y/n): " choice
-
-    # Exit the loop if the user chooses not to add another student
-    if [ "$choice" == "n" ]; then
-        break
-    fi
-done
-
-# Generate the cohort list by iterating over the student array
-echo "Cohort List:"
-for student in "${students[@]}"; do
-    email=$(echo $student | awk -F'[ =]' '{print $3}')
-    age=$(echo $student | awk -F'[ =]' '{print $6}')
-    student_id=$(echo $student | awk -F'[ =]' '{print $9}')
-    echo "Email: $email, Age: $age, Student ID: $student_id"
-done
-
-# Invoke the select-emails.sh script to extract student emails
-./select-emails.sh
+echo "Backup script created: $backup_script"

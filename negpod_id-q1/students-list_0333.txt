@@ -1,0 +1,13 @@
+123456789, tfgggcdrf, 8
+1001, john@example.com, 25
+1001, john@example.com, 25
+1002,maryjane@bud.lit,30
+1003, james@example.com, 28
+1004, emma@example.com, 22
+1005, alex@example.com, 27
+1006, sarah@example.com, 29
+1007, david@example.com, 26
+1008, olivia@example.com, 23
+1009, william@example.com, 24
+1010, ava@example.com, 31
+10008, rk@lum.com, 20
